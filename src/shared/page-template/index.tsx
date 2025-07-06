@@ -1,10 +1,6 @@
-import type { ReactNode } from 'react';
+import { Outlet } from 'react-router';
 
-interface Props {
-  children: ReactNode;
-}
-
-export default function PageTemplate({ children }: Props) {
+export default function PageTemplate() {
   return (
     <main
       aria-label="page"
@@ -14,7 +10,7 @@ export default function PageTemplate({ children }: Props) {
         aria-label="page-body"
         className="w-full h-full max-w-[100dvh] max-h-[100vw] aspect-square"
       >
-        {children}
+        <Outlet />
       </section>
     </main>
   );

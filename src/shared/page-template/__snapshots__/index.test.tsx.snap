@@ -9,7 +9,9 @@ exports[`PageTemplate should match with snapshot 1`] = `
     aria-label="page-body"
     class="w-full h-full max-w-[100dvh] max-h-[100vw] aspect-square"
   >
-    Lorem ipsum dolor sit amet.
+    <div>
+      Aggie Koishi
+    </div>
   </section>
 </main>
 `;
