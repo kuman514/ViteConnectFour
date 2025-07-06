@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`PageTemplate should match with snapshot 1`] = `
+<main
+  aria-label="page"
+  class="w-screen h-dvh flex justify-center items-center"
+>
+  <section
+    aria-label="page-body"
+    class="w-full h-full max-w-[100dvh] max-h-[100vw] aspect-square"
+  >
+    Lorem ipsum dolor sit amet.
+  </section>
+</main>
+`;
