@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 
 import GridTile from '.';
 import { GridTileStatus } from './types';
@@ -37,7 +38,7 @@ describe('GridTile', () => {
   });
 
   it('should be clickable', () => {
-    const mockFn = jest.fn();
+    const mockFn = vi.fn();
     render(
       <GridTile
         row={0}
@@ -52,7 +53,7 @@ describe('GridTile', () => {
   });
 
   it('should not be clickable when disabled', () => {
-    const mockFn = jest.fn();
+    const mockFn = vi.fn();
     render(
       <GridTile
         row={0}
@@ -67,7 +68,7 @@ describe('GridTile', () => {
   });
 
   it('should send a bubbled event from on-click button', () => {
-    const mockFn = jest.fn();
+    const mockFn = vi.fn();
     render(
       <div
         onClick={(event) => {

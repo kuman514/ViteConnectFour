@@ -1,6 +1,6 @@
-// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`PageTemplate should match with snapshot 1`] = `
+exports[`PageTemplate > should match with snapshot 1`] = `
 <main
   aria-label="page"
   class="w-screen h-dvh flex justify-center items-center"

@@ -1,4 +1,5 @@
 import { fireEvent, render, screen } from '@testing-library/react';
+import { describe, expect, it, vi } from 'vitest';
 
 import UIButton from '.';
 
@@ -20,7 +21,7 @@ describe('UIButton', () => {
   });
 
   it('should be clickable', async () => {
-    const mockFn = jest.fn();
+    const mockFn = vi.fn();
     render(
       <UIButton ariaLabel="test-button" onClick={mockFn}>
         Aggie Koishi
@@ -31,7 +32,7 @@ describe('UIButton', () => {
   });
 
   it('should not be clickable when disabled', async () => {
-    const mockFn = jest.fn();
+    const mockFn = vi.fn();
     render(
       <UIButton isDisabled ariaLabel="test-button" onClick={mockFn}>
         Aggie Koishi
