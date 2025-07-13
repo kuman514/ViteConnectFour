@@ -9,6 +9,7 @@ export interface HistoryNode {
 export interface GameStoreState {
   tiles: GridTileStatus[][];
   currentPlayer: GridTileStatus;
+  winner: GridTileStatus;
   history: HistoryNode[];
 }
 
