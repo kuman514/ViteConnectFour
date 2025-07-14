@@ -11,6 +11,6 @@ export const MAX_COL = COLS - 1;
 
 export const CIRCLE_COLOR = {
   [GridTileStatus.EMPTY]: '#EEEEEE',
-  [GridTileStatus.P1]: '#FF0000',
-  [GridTileStatus.P2]: '#FFFF00',
+  [GridTileStatus.P1]: 'oklch(63.7% 0.237 25.331)',
+  [GridTileStatus.P2]: 'oklch(90.5% 0.182 98.111)',
 } as const;

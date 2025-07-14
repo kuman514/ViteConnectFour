@@ -11,7 +11,7 @@ describe('GridTile', () => {
     );
     const circleColor =
       screen.getByLabelText('grid-circle-0-0').style.backgroundColor;
-    expect(circleColor).toStrictEqual('rgb(255, 0, 0)');
+    expect(circleColor).toStrictEqual('oklch(0.637 0.237 25.331)');
   });
 
   it('should be yellow when player 2 touched', () => {
@@ -20,7 +20,7 @@ describe('GridTile', () => {
     );
     const circleColor =
       screen.getByLabelText('grid-circle-0-0').style.backgroundColor;
-    expect(circleColor).toStrictEqual('rgb(255, 255, 0)');
+    expect(circleColor).toStrictEqual('oklch(0.905 0.182 98.111)');
   });
 
   it('should be gray when it is vacant', () => {
