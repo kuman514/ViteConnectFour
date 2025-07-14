@@ -20,3 +20,11 @@ export interface GameStoreAction {
 }
 
 export type GameStore = GameStoreState & GameStoreAction;
+
+export interface WinnerInfo {
+  winner: GridTileStatus;
+  range: {
+    row: IntRange<0, Rows>;
+    col: IntRange<0, Cols>;
+  }[];
+}

@@ -14,7 +14,7 @@ import {
 import type { IntRange } from '^/shared/types';
 
 import { MINIMUM_WINNING_LENGTH } from '../constants';
-import type { GameStoreState } from '../types';
+import type { GameStoreState, WinnerInfo } from '../types';
 
 export function getInitialTiles() {
   return Array.from({ length: ROWS }, () =>
@@ -36,7 +36,7 @@ export function getWinner({
   row: IntRange<0, Rows>;
   col: IntRange<0, Cols>;
   tiles: GameStoreState['tiles'];
-}) {
+}): WinnerInfo {
   const possibleWinner = tiles[row][col];
 
   if (possibleWinner === GridTileStatus.EMPTY) {
