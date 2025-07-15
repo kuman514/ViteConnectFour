@@ -23,7 +23,7 @@ export default function GridTile({
       aria-label={`grid-tile-${row}-${col}`}
       id={`grid-tile-${row}-${col}`}
       type="button"
-      className="w-full h-full p-[10%] aspect-square bg-white hover:bg-gray-300 cursor-pointer disabled:cursor-auto"
+      className="w-full h-full p-[10%] aspect-square cursor-pointer disabled:cursor-auto"
       disabled={isDisabled}
       onClick={onClick}
     >
