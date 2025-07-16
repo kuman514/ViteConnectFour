@@ -22,3 +22,34 @@ body {
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+.fade-out-animation {
+  animation: FadeOutKeyframe linear 3000ms;
+  animation-iteration-count: 1;
+}
+
+@keyframes FadeOutKeyframe {
+  0% {
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.big-breathe-animation {
+  animation: BigBreatheKeyframe linear 3000ms;
+  animation-iteration-count: 1;
+}
+
+@keyframes BigBreatheKeyframe {
+  0% {
+    font-size: 0;
+  }
+  10% {
+    font-size: 250%;
+  }
+}
