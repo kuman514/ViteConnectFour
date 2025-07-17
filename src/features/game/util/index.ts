@@ -46,7 +46,6 @@ export function getWinner({
     };
   }
 
-  const range = [-3, -2, -1, 0, 1, 2, 3];
   const directions = [
     { rowDir: 0, colDir: 1 },
     { rowDir: 1, colDir: 0 },
@@ -56,32 +55,39 @@ export function getWinner({
 
   const resultsByDirection = directions
     .map((dir) => {
-      let series = 0;
-      for (let i = 0; i < range.length; i++) {
-        const curRange = range[i];
-        const r = row + curRange * dir.rowDir;
-        const c = col + curRange * dir.colDir;
+      const series = [
+        {
+          row: row as IntRange<0, Rows>,
+          col: col as IntRange<0, Cols>,
+        },
+      ];
 
-        if (
-          r < MIN_ROW ||
-          r > MAX_ROW ||
-          c < MIN_COL ||
-          c > MAX_COL ||
-          tiles[r][c] !== possibleWinner
-        ) {
-          series = 0;
-          continue;
-        }
+      for (let inc = -1; inc <= 1; inc += 2) {
+        let range = 1;
+        while (true) {
+          const r = row + inc * range * dir.rowDir;
+          const c = col + inc * range * dir.colDir;
 
-        series++;
-        if (series >= MINIMUM_WINNING_LENGTH) {
-          return range.slice(i - series + 1, i + 1).map((foundRange) => ({
-            row: (row + foundRange * dir.rowDir) as IntRange<0, Rows>,
-            col: (col + foundRange * dir.colDir) as IntRange<0, Cols>,
-          }));
+          if (
+            r < MIN_ROW ||
+            r > MAX_ROW ||
+            c < MIN_COL ||
+            c > MAX_COL ||
+            tiles[r][c] !== possibleWinner
+          ) {
+            break;
+          }
+
+          series.push({
+            row: r as IntRange<0, Rows>,
+            col: c as IntRange<0, Cols>,
+          });
+
+          range++;
         }
       }
-      return [];
+
+      return series;
     })
     .filter((found) => found.length >= MINIMUM_WINNING_LENGTH);
 

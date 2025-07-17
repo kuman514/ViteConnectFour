@@ -45,7 +45,7 @@ describe('Game utils', () => {
     expect(isValid).toStrictEqual(true);
   });
 
-  it('should determine winner based on deployed row-col in tiles', () => {
+  it('should determine winner and range based on deployed row-col in tiles', () => {
     const tiles = convertStringToTilesForTest(`
       0020022
       0012221
@@ -55,32 +55,114 @@ describe('Game utils', () => {
       2222111
     `);
 
-    expect(getWinner({ row: 2, col: 2, tiles }).winner).toStrictEqual(
-      GridTileStatus.P1
-    );
+    expect(getWinner({ row: 2, col: 2, tiles })).toStrictEqual({
+      winner: GridTileStatus.P1,
+      range: [
+        {
+          row: 2,
+          col: 2,
+        },
+        {
+          row: 3,
+          col: 3,
+        },
+        {
+          row: 4,
+          col: 4,
+        },
+        {
+          row: 5,
+          col: 5,
+        },
+      ],
+    });
 
-    expect(getWinner({ row: 3, col: 2, tiles }).winner).toStrictEqual(
-      GridTileStatus.P2
-    );
+    expect(getWinner({ row: 3, col: 2, tiles })).toStrictEqual({
+      winner: GridTileStatus.P2,
+      range: [
+        {
+          row: 3,
+          col: 2,
+        },
+        {
+          row: 4,
+          col: 1,
+        },
+        {
+          row: 5,
+          col: 0,
+        },
+        {
+          row: 2,
+          col: 3,
+        },
+        {
+          row: 1,
+          col: 4,
+        },
+        {
+          row: 0,
+          col: 5,
+        },
+      ],
+    });
 
-    expect(getWinner({ row: 0, col: 2, tiles }).winner).toStrictEqual(
-      GridTileStatus.P2
-    );
+    expect(getWinner({ row: 0, col: 2, tiles })).toStrictEqual({
+      winner: GridTileStatus.P2,
+      range: [
+        {
+          row: 0,
+          col: 2,
+        },
+        {
+          row: 1,
+          col: 3,
+        },
+        {
+          row: 2,
+          col: 4,
+        },
+        {
+          row: 3,
+          col: 5,
+        },
+      ],
+    });
 
-    expect(getWinner({ row: 3, col: 0, tiles }).winner).toStrictEqual(
-      GridTileStatus.EMPTY
-    );
+    expect(getWinner({ row: 3, col: 0, tiles })).toStrictEqual({
+      winner: GridTileStatus.EMPTY,
+      range: [],
+    });
 
-    expect(getWinner({ row: 5, col: 6, tiles }).winner).toStrictEqual(
-      GridTileStatus.P1
-    );
+    expect(getWinner({ row: 4, col: 5, tiles })).toStrictEqual({
+      winner: GridTileStatus.P1,
+      range: [
+        { row: 4, col: 5 },
+        { row: 4, col: 4 },
+        { row: 4, col: 3 },
+        { row: 4, col: 6 },
+      ],
+    });
 
-    expect(getWinner({ row: 2, col: 1, tiles }).winner).toStrictEqual(
-      GridTileStatus.EMPTY
-    );
+    expect(getWinner({ row: 5, col: 6, tiles })).toStrictEqual({
+      winner: GridTileStatus.P1,
+      range: [
+        { row: 5, col: 6 },
+        { row: 4, col: 6 },
+        { row: 3, col: 6 },
+        { row: 2, col: 6 },
+        { row: 1, col: 6 },
+      ],
+    });
 
-    expect(getWinner({ row: 0, col: 6, tiles }).winner).toStrictEqual(
-      GridTileStatus.EMPTY
-    );
+    expect(getWinner({ row: 2, col: 1, tiles })).toStrictEqual({
+      winner: GridTileStatus.EMPTY,
+      range: [],
+    });
+
+    expect(getWinner({ row: 0, col: 6, tiles })).toStrictEqual({
+      winner: GridTileStatus.EMPTY,
+      range: [],
+    });
   });
 });
