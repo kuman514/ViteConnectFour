@@ -6,7 +6,7 @@
   "scripts": {
     "start": "vite --open --host",
     "test": "vitest",
-    "build": "tsc -b && vite build",
+    "build": "yarn lint && yarn test --watch=false && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
