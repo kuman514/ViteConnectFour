@@ -1,9 +1,12 @@
-import type { Cols, GridTileStatus, Rows } from '^/entities/grid-tile/types';
-import type { IntRange } from '^/shared/types';
+import type {
+  ColRange,
+  GridTileStatus,
+  RowRange,
+} from '^/entities/grid-tile/types';
 
 export interface Coords {
-  row: IntRange<0, Rows>;
-  col: IntRange<0, Cols>;
+  row: RowRange;
+  col: ColRange;
 }
 
 export interface HistoryNode {
@@ -19,7 +22,7 @@ export interface GameStoreState {
 }
 
 export interface GameStoreAction {
-  deployToCol: (col: IntRange<0, Cols>) => void;
+  deployToCol: (col: ColRange) => void;
   undo: () => void;
   reset: () => void;
 }

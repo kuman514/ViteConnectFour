@@ -1,8 +1,7 @@
 import { create } from 'zustand';
 
 import { MAX_ROW } from '^/entities/grid-tile/constants';
-import { GridTileStatus, type Rows } from '^/entities/grid-tile/types';
-import type { IntRange } from '^/shared/types';
+import { GridTileStatus, type RowRange } from '^/entities/grid-tile/types';
 
 import type { GameStore, HistoryNode } from '../types';
 import { deepCopyTiles, getInitialTiles, getWinner } from '../util';
@@ -17,7 +16,7 @@ export const useGameStore = create<GameStore>()((set) => ({
       if (state.tiles[0][col] !== GridTileStatus.EMPTY) {
         return state;
       }
-      let row = 0 as IntRange<0, Rows>;
+      let row = 0 as RowRange;
       while (row < MAX_ROW) {
         if (state.tiles[row + 1][col] !== GridTileStatus.EMPTY) {
           break;

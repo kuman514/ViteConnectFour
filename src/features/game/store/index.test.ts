@@ -1,7 +1,11 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import { COLS, MAX_ROW, ROWS } from '^/entities/grid-tile/constants';
-import { GridTileStatus, type Cols } from '^/entities/grid-tile/types';
+import {
+  GridTileStatus,
+  type ColRange,
+  type Cols,
+} from '^/entities/grid-tile/types';
 import type { IntRange } from '^/shared/types';
 
 import { useGameStore } from '.';
@@ -110,7 +114,7 @@ describe('Game store', () => {
 
   it('should have player 1 winning in vertical', () => {
     const deployToCol = useGameStore.getState().deployToCol;
-    const sequence: IntRange<0, Cols>[] = [3, 2, 3, 2, 3, 2, 3];
+    const sequence: ColRange[] = [3, 2, 3, 2, 3, 2, 3];
     sequence.forEach((col) => deployToCol(col));
     const winner = useGameStore.getState().winner;
     expect(winner).toStrictEqual(GridTileStatus.P1);
@@ -118,7 +122,7 @@ describe('Game store', () => {
 
   it('should have player 2 winning in horizontal', () => {
     const deployToCol = useGameStore.getState().deployToCol;
-    const sequence: IntRange<0, Cols>[] = [0, 1, 1, 2, 2, 3, 3, 4];
+    const sequence: ColRange[] = [0, 1, 1, 2, 2, 3, 3, 4];
     sequence.forEach((col) => deployToCol(col));
     const winner = useGameStore.getState().winner;
     expect(winner).toStrictEqual(GridTileStatus.P2);
@@ -126,7 +130,7 @@ describe('Game store', () => {
 
   it('should have player 2 winning in vertical', () => {
     const deployToCol = useGameStore.getState().deployToCol;
-    const sequence: IntRange<0, Cols>[] = [
+    const sequence: ColRange[] = [
       1, 4, 6, 0, 3, 6, 3, 3, 3, 4, 2, 3, 1, 2, 6, 4, 4, 3, 6, 1, 1, 2,
     ];
     sequence.forEach((col) => deployToCol(col));
@@ -136,7 +140,7 @@ describe('Game store', () => {
 
   it('should have player 2 winning in diagonal', () => {
     const deployToCol = useGameStore.getState().deployToCol;
-    const sequence: IntRange<0, Cols>[] = [
+    const sequence: ColRange[] = [
       0, 1, 2, 3, 4, 4, 5, 3, 3, 2, 3, 4, 5, 6, 5, 2, 6, 5, 6, 2, 6, 6,
     ];
     sequence.forEach((col) => deployToCol(col));
@@ -146,7 +150,7 @@ describe('Game store', () => {
 
   it('should have player 1 winning in reverse-diagonal', () => {
     const deployToCol = useGameStore.getState().deployToCol;
-    const sequence: IntRange<0, Cols>[] = [
+    const sequence: ColRange[] = [
       5, 1, 5, 5, 3, 4, 5, 4, 0, 4, 6, 2, 5, 3, 2, 3, 6, 6, 2, 6, 5, 6, 3, 0, 6,
       3, 0, 0, 3, 4, 4,
     ];

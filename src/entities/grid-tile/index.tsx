@@ -1,11 +1,9 @@
-import type { IntRange } from '^/shared/types';
-
 import { CIRCLE_COLOR } from './constants';
-import type { Cols, GridTileStatus, Rows } from './types';
+import type { ColRange, GridTileStatus, RowRange } from './types';
 
 interface Props {
-  row: IntRange<0, Rows>;
-  col: IntRange<0, Cols>;
+  row: RowRange;
+  col: ColRange;
   status: GridTileStatus;
   isDisabled: boolean;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;

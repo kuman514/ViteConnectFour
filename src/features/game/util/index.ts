@@ -8,10 +8,9 @@ import {
 } from '^/entities/grid-tile/constants';
 import {
   GridTileStatus,
-  type Cols,
-  type Rows,
+  type ColRange,
+  type RowRange,
 } from '^/entities/grid-tile/types';
-import type { IntRange } from '^/shared/types';
 
 import { MINIMUM_WINNING_LENGTH } from '../constants';
 import type { GameStoreState, WinnerInfo } from '../types';
@@ -33,8 +32,8 @@ export function getWinner({
   col,
   tiles,
 }: {
-  row: IntRange<0, Rows>;
-  col: IntRange<0, Cols>;
+  row: RowRange;
+  col: ColRange;
   tiles: GameStoreState['tiles'];
 }): WinnerInfo {
   const possibleWinner = tiles[row][col];
@@ -57,8 +56,8 @@ export function getWinner({
     .map((dir) => {
       const series = [
         {
-          row: row as IntRange<0, Rows>,
-          col: col as IntRange<0, Cols>,
+          row: row as RowRange,
+          col: col as ColRange,
         },
       ];
 
@@ -79,8 +78,8 @@ export function getWinner({
           }
 
           series.push({
-            row: r as IntRange<0, Rows>,
-            col: c as IntRange<0, Cols>,
+            row: r as RowRange,
+            col: c as ColRange,
           });
 
           range++;
