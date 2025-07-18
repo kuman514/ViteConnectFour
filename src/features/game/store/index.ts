@@ -31,7 +31,7 @@ export const useGameStore = create<GameStore>()((set) => ({
 
       const newHistoryNode: HistoryNode = {
         player: state.currentPlayer,
-        coords: [row, col],
+        coords: { row, col },
       };
       const newPlayer =
         state.currentPlayer === GridTileStatus.P1
@@ -61,7 +61,7 @@ export const useGameStore = create<GameStore>()((set) => ({
 
       const { player, coords } = historyNode;
       const newTiles: GridTileStatus[][] = deepCopyTiles(state.tiles);
-      newTiles[coords[0]][coords[1]] = GridTileStatus.EMPTY;
+      newTiles[coords.row][coords.col] = GridTileStatus.EMPTY;
 
       return {
         tiles: newTiles,

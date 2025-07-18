@@ -97,13 +97,13 @@ describe('Game store', () => {
     for (let i = 0; i <= MAX_ROW; i++) {
       const history = useGameStore.getState().history;
       const { player, coords } = history[history.length - 1];
-      expect(useGameStore.getState().tiles[coords[0]][coords[1]]).toStrictEqual(
-        player
-      );
+      expect(
+        useGameStore.getState().tiles[coords.row][coords.col]
+      ).toStrictEqual(player);
       undo();
-      expect(useGameStore.getState().tiles[coords[0]][coords[1]]).toStrictEqual(
-        GridTileStatus.EMPTY
-      );
+      expect(
+        useGameStore.getState().tiles[coords.row][coords.col]
+      ).toStrictEqual(GridTileStatus.EMPTY);
     }
     expect(useGameStore.getState().history.length).toStrictEqual(0);
   });
