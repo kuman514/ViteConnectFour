@@ -1,12 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 
 import { COLS, MAX_ROW, ROWS } from '^/entities/grid-tile/constants';
-import {
-  GridTileStatus,
-  type ColRange,
-  type Cols,
-} from '^/entities/grid-tile/types';
-import type { IntRange } from '^/shared/types';
+import { GridTileStatus, type ColRange } from '^/entities/grid-tile/types';
 
 import { useGameStore } from '.';
 
@@ -21,10 +16,7 @@ describe('Game store', () => {
   });
 
   it('should deploy from very ground', () => {
-    const randomlySelectedCol = Math.floor(Math.random() * COLS) as IntRange<
-      0,
-      Cols
-    >;
+    const randomlySelectedCol = Math.floor(Math.random() * COLS) as ColRange;
 
     const deployToCol = useGameStore.getState().deployToCol;
     deployToCol(randomlySelectedCol);
@@ -53,10 +45,7 @@ describe('Game store', () => {
   });
 
   it('should not deploy anymore if full of column', () => {
-    const randomlySelectedCol = Math.floor(Math.random() * COLS) as IntRange<
-      0,
-      Cols
-    >;
+    const randomlySelectedCol = Math.floor(Math.random() * COLS) as ColRange;
 
     const deployToCol = useGameStore.getState().deployToCol;
 
@@ -85,10 +74,7 @@ describe('Game store', () => {
   it('should undo based on history', () => {
     const deployToCol = useGameStore.getState().deployToCol;
     for (let i = 0; i <= MAX_ROW; i++) {
-      const randomlySelectedCol = Math.floor(Math.random() * COLS) as IntRange<
-        0,
-        Cols
-      >;
+      const randomlySelectedCol = Math.floor(Math.random() * COLS) as ColRange;
       deployToCol(randomlySelectedCol);
     }
 
