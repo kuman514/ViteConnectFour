@@ -1,7 +1,14 @@
 import { cleanup, fireEvent, render, screen } from '@testing-library/react';
 import { beforeEach, describe, expect, it } from 'vitest';
 
-import { COLS, MAX_ROW, ROWS } from '^/entities/grid-tile/constants';
+import {
+  COLS,
+  MAX_COL,
+  MAX_ROW,
+  MIN_COL,
+  MIN_ROW,
+  ROWS,
+} from '^/entities/grid-tile/constants';
 import {
   GridTileStatus,
   type ColRange,
@@ -21,7 +28,7 @@ describe('Game page', () => {
     render(<GamePage />);
 
     // prettier-ignore
-    expect((await screen.findByLabelText('current-turn')).textContent).toStrictEqual('Player 1\'s turn...')
+    expect((await screen.findByLabelText('current-turn')).textContent).toStrictEqual('Player 1\'s turn...');
   });
 
   it('should deploy from very ground', async () => {
@@ -259,5 +266,35 @@ describe('Game page', () => {
     expect((await screen.findByLabelText('result')).textContent).toStrictEqual(
       'Player 1 wins!'
     );
+  });
+
+  it('should restore to initial state on click reset button', async () => {
+    render(<GamePage />);
+
+    const sequence: ColRange[] = [
+      5, 1, 5, 5, 3, 4, 5, 4, 0, 4, 6, 2, 5, 3, 2, 3, 6, 6, 2, 6, 5, 6, 3, 0, 6,
+      3, 0, 0, 3, 4, 4,
+    ];
+    for (const col of sequence) {
+      const randomlySelectedRow = Math.floor(Math.random() * ROWS) as RowRange;
+      fireEvent.click(
+        await screen.findByLabelText(`grid-tile-${randomlySelectedRow}-${col}`)
+      );
+    }
+
+    fireEvent.click(await screen.findByLabelText('reset'));
+
+    for (let i = MIN_ROW; i <= MAX_ROW; i++) {
+      for (let j = MIN_COL; j <= MAX_COL; j++) {
+        expect(
+          (await screen.findByLabelText(`grid-circle-${i}-${j}`)).style
+            .backgroundColor
+        ).toStrictEqual('rgb(238, 238, 238)');
+      }
+    }
+
+    // prettier-ignore
+    expect((await screen.findByLabelText('current-turn')).textContent).toStrictEqual('Player 1\'s turn...');
+    expect(useGameStore.getState().history.length).toStrictEqual(0);
   });
 });
