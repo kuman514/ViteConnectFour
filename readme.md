@@ -1,6 +1,6 @@
 # ViteConnectFour
 
-React + Vite + Zustand를 이용하여 만든, 커넥트 포 게임.
+React + Vite + Zustand를 이용하여 만든, 커넥트 포 게임. ([플레이하기](https://vite-connect-four.vercel.app/))
 
 ## 게임 규칙
 
