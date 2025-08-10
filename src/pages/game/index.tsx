@@ -14,9 +14,14 @@ export default function GamePage() {
   const { tiles, currentPlayer, history, winner, deployToCol, undo, reset } =
     useGameStore();
 
+  const isDraw =
+    history.length === ROWS * COLS && winner === GridTileStatus.EMPTY;
+
   const renderPlayStatus =
-    winner !== GridTileStatus.EMPTY ? (
-      <span aria-label="result">Player {winner} wins!</span>
+    winner !== GridTileStatus.EMPTY || isDraw ? (
+      <span aria-label="result">
+        {isDraw ? 'Draw!' : `Player ${winner} wins!`}
+      </span>
     ) : (
       <span aria-label="current-turn">Player {currentPlayer}'s turn...</span>
     );
@@ -68,7 +73,9 @@ export default function GamePage() {
       <div className="flex flex-row gap-4">
         <UIButton
           ariaLabel="undo"
-          isDisabled={history.length === 0 || winner !== GridTileStatus.EMPTY}
+          isDisabled={
+            history.length === 0 || winner !== GridTileStatus.EMPTY || isDraw
+          }
           onClick={() => {
             undo();
           }}
