@@ -297,4 +297,29 @@ describe('Game page', () => {
     expect((await screen.findByLabelText('current-turn')).textContent).toStrictEqual('Player 1\'s turn...');
     expect(useGameStore.getState().history.length).toStrictEqual(0);
   });
+
+  it('should determine draw and disable undo button when the tile is full and there is no winner', async () => {
+    render(<GamePage />);
+
+    const sequence: ColRange[] = [
+      0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 4, 3, 3, 3, 3, 3, 3,
+      4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 5,
+    ];
+
+    for (const col of sequence) {
+      const randomlySelectedRow = Math.floor(Math.random() * ROWS) as RowRange;
+      fireEvent.click(
+        await screen.findByLabelText(`grid-tile-${randomlySelectedRow}-${col}`)
+      );
+    }
+
+    expect((await screen.findByLabelText('result')).textContent).toStrictEqual(
+      'Draw!'
+    );
+
+    fireEvent.click(await screen.findByLabelText('undo'));
+    expect((await screen.findByLabelText('result')).textContent).toStrictEqual(
+      'Draw!'
+    );
+  });
 });
