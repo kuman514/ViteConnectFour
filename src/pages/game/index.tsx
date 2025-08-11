@@ -11,8 +11,16 @@ import Title from '^/shared/title';
 import UIButton from '^/shared/ui-button';
 
 export default function GamePage() {
-  const { tiles, currentPlayer, history, winner, deployToCol, undo, reset } =
-    useGameStore();
+  const {
+    tiles,
+    currentPlayer,
+    history,
+    winner,
+    winnerRange,
+    deployToCol,
+    undo,
+    reset,
+  } = useGameStore();
 
   const isDraw =
     history.length === ROWS * COLS && winner === GridTileStatus.EMPTY;
@@ -57,6 +65,12 @@ export default function GamePage() {
               row={i as RowRange}
               col={j as ColRange}
               isDisabled={winner !== GridTileStatus.EMPTY}
+              isHighlighted={
+                winner !== GridTileStatus.EMPTY &&
+                winnerRange.some(
+                  (coords) => coords.row === i && coords.col === j
+                )
+              }
               status={tiles[i][j]}
             />
           ))}
