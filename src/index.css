@@ -53,3 +53,20 @@ body {
     font-size: 250%;
   }
 }
+
+.highlight-animation {
+  animation: HighlightKeyframe linear 1000ms;
+  animation-iteration-count: infinite;
+}
+
+@keyframes HighlightKeyframe {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

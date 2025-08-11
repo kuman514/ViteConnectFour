@@ -6,6 +6,7 @@ interface Props {
   col: ColRange;
   status: GridTileStatus;
   isDisabled: boolean;
+  isHighlighted: boolean;
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
@@ -14,6 +15,7 @@ export default function GridTile({
   col,
   status,
   isDisabled,
+  isHighlighted,
   onClick,
 }: Props) {
   return (
@@ -21,7 +23,9 @@ export default function GridTile({
       aria-label={`grid-tile-${row}-${col}`}
       id={`grid-tile-${row}-${col}`}
       type="button"
-      className="w-full h-full p-[10%] aspect-square cursor-pointer disabled:cursor-auto"
+      className={`w-full h-full p-[10%] aspect-square cursor-pointer disabled:cursor-auto ${
+        isHighlighted ? 'highlight-animation' : ''
+      }`}
       disabled={isDisabled}
       onClick={onClick}
     >

@@ -16,6 +16,7 @@ import {
 } from '^/entities/grid-tile/types';
 import { useGameStore } from '^/features/game/store';
 
+import { MINIMUM_WINNING_LENGTH } from '^/features/game/constants';
 import GamePage from '.';
 
 describe('Game page', () => {
@@ -181,7 +182,7 @@ describe('Game page', () => {
     ).toStrictEqual(true);
   });
 
-  it('should have player 1 winning in vertical', async () => {
+  it('should have player 1 winning in vertical and highlight the range', async () => {
     render(<GamePage />);
 
     const sequence: ColRange[] = [3, 2, 3, 2, 3, 2, 3];
@@ -195,9 +196,20 @@ describe('Game page', () => {
     expect((await screen.findByLabelText('result')).textContent).toStrictEqual(
       'Player 1 wins!'
     );
+
+    expect(useGameStore.getState().winnerRange.length).toBeGreaterThanOrEqual(
+      MINIMUM_WINNING_LENGTH
+    );
+    for (const { row, col } of useGameStore.getState().winnerRange) {
+      expect(
+        (
+          await screen.findByLabelText(`grid-tile-${row}-${col}`)
+        ).classList.contains('highlight-animation')
+      ).toStrictEqual(true);
+    }
   });
 
-  it('should have player 2 winning in horizontal', async () => {
+  it('should have player 2 winning in horizontal and highlight the range', async () => {
     render(<GamePage />);
 
     const sequence: ColRange[] = [0, 1, 1, 2, 2, 3, 3, 4];
@@ -211,9 +223,20 @@ describe('Game page', () => {
     expect((await screen.findByLabelText('result')).textContent).toStrictEqual(
       'Player 2 wins!'
     );
+
+    expect(useGameStore.getState().winnerRange.length).toBeGreaterThanOrEqual(
+      MINIMUM_WINNING_LENGTH
+    );
+    for (const { row, col } of useGameStore.getState().winnerRange) {
+      expect(
+        (
+          await screen.findByLabelText(`grid-tile-${row}-${col}`)
+        ).classList.contains('highlight-animation')
+      ).toStrictEqual(true);
+    }
   });
 
-  it('should have player 2 winning in vertical', async () => {
+  it('should have player 2 winning in vertical and highlight the range', async () => {
     render(<GamePage />);
 
     const sequence: ColRange[] = [
@@ -229,9 +252,20 @@ describe('Game page', () => {
     expect((await screen.findByLabelText('result')).textContent).toStrictEqual(
       'Player 2 wins!'
     );
+
+    expect(useGameStore.getState().winnerRange.length).toBeGreaterThanOrEqual(
+      MINIMUM_WINNING_LENGTH
+    );
+    for (const { row, col } of useGameStore.getState().winnerRange) {
+      expect(
+        (
+          await screen.findByLabelText(`grid-tile-${row}-${col}`)
+        ).classList.contains('highlight-animation')
+      ).toStrictEqual(true);
+    }
   });
 
-  it('should have player 2 winning in diagonal', async () => {
+  it('should have player 2 winning in diagonal and highlight the range', async () => {
     render(<GamePage />);
 
     const sequence: ColRange[] = [
@@ -247,9 +281,20 @@ describe('Game page', () => {
     expect((await screen.findByLabelText('result')).textContent).toStrictEqual(
       'Player 2 wins!'
     );
+
+    expect(useGameStore.getState().winnerRange.length).toBeGreaterThanOrEqual(
+      MINIMUM_WINNING_LENGTH
+    );
+    for (const { row, col } of useGameStore.getState().winnerRange) {
+      expect(
+        (
+          await screen.findByLabelText(`grid-tile-${row}-${col}`)
+        ).classList.contains('highlight-animation')
+      ).toStrictEqual(true);
+    }
   });
 
-  it('should have player 1 winning in reverse-diagonal', async () => {
+  it('should have player 1 winning in reverse-diagonal and highlight the range', async () => {
     render(<GamePage />);
 
     const sequence: ColRange[] = [
@@ -266,6 +311,17 @@ describe('Game page', () => {
     expect((await screen.findByLabelText('result')).textContent).toStrictEqual(
       'Player 1 wins!'
     );
+
+    expect(useGameStore.getState().winnerRange.length).toBeGreaterThanOrEqual(
+      MINIMUM_WINNING_LENGTH
+    );
+    for (const { row, col } of useGameStore.getState().winnerRange) {
+      expect(
+        (
+          await screen.findByLabelText(`grid-tile-${row}-${col}`)
+        ).classList.contains('highlight-animation')
+      ).toStrictEqual(true);
+    }
   });
 
   it('should restore to initial state on click reset button', async () => {
@@ -296,5 +352,30 @@ describe('Game page', () => {
     // prettier-ignore
     expect((await screen.findByLabelText('current-turn')).textContent).toStrictEqual('Player 1\'s turn...');
     expect(useGameStore.getState().history.length).toStrictEqual(0);
+  });
+
+  it('should determine draw and disable undo button when the tile is full and there is no winner', async () => {
+    render(<GamePage />);
+
+    const sequence: ColRange[] = [
+      0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 4, 3, 3, 3, 3, 3, 3,
+      4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 5,
+    ];
+
+    for (const col of sequence) {
+      const randomlySelectedRow = Math.floor(Math.random() * ROWS) as RowRange;
+      fireEvent.click(
+        await screen.findByLabelText(`grid-tile-${randomlySelectedRow}-${col}`)
+      );
+    }
+
+    expect((await screen.findByLabelText('result')).textContent).toStrictEqual(
+      'Draw!'
+    );
+
+    fireEvent.click(await screen.findByLabelText('undo'));
+    expect((await screen.findByLabelText('result')).textContent).toStrictEqual(
+      'Draw!'
+    );
   });
 });
