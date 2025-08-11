@@ -18,6 +18,7 @@ export interface GameStoreState {
   tiles: GridTileStatus[][];
   currentPlayer: GridTileStatus;
   winner: GridTileStatus;
+  winnerRange: Coords[];
   history: HistoryNode[];
 }
 
