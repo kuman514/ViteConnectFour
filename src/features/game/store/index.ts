@@ -10,6 +10,7 @@ export const useGameStore = create<GameStore>()((set) => ({
   tiles: getInitialTiles(),
   currentPlayer: GridTileStatus.P1,
   winner: GridTileStatus.EMPTY,
+  winnerRange: [],
   history: [],
   deployToCol: (col) => {
     set((state) => {
@@ -42,6 +43,7 @@ export const useGameStore = create<GameStore>()((set) => ({
         tiles: newTiles,
         currentPlayer: newPlayer,
         winner: newWinner.winner,
+        winnerRange: newWinner.range,
         history: newHistory,
       };
     });
@@ -66,6 +68,7 @@ export const useGameStore = create<GameStore>()((set) => ({
         tiles: newTiles,
         currentPlayer: player,
         winner: GridTileStatus.EMPTY,
+        winnerRange: [],
         history: newHistory,
       };
     });
@@ -75,6 +78,7 @@ export const useGameStore = create<GameStore>()((set) => ({
       tiles: getInitialTiles(),
       currentPlayer: GridTileStatus.P1,
       winner: GridTileStatus.EMPTY,
+      winnerRange: [],
       history: [],
     }));
   },
