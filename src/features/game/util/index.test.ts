@@ -167,10 +167,14 @@ describe('Game utils', () => {
     });
   });
 
+  /**
+   * @todo
+   * Know what mockReturnValue and spyOn are
+   */
   it('should invoke download when saving history to replay file', () => {
     const onClickMockFn = vi.fn();
-    const createObjectURLMockFn = vi.fn().mockReturnValue('blob:mock-url');
-    global.URL.createObjectURL = createObjectURLMockFn;
+    const createObjectUrlMockFn = vi.fn().mockReturnValue('blob:mock-url');
+    global.URL.createObjectURL = createObjectUrlMockFn;
 
     const anchorMock = {
       click: onClickMockFn,
@@ -202,7 +206,7 @@ describe('Game utils', () => {
     ]);
 
     expect(createElementMock).toHaveBeenCalledWith('a');
-    expect(createObjectURLMockFn).toHaveBeenCalled();
+    expect(createObjectUrlMockFn).toHaveBeenCalled();
     expect(anchorMock._href).toBe('blob:mock-url');
     expect(anchorMock._download).toBe('replay.json');
     expect(onClickMockFn).toHaveBeenCalled();
