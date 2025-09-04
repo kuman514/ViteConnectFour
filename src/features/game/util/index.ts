@@ -120,3 +120,20 @@ export function convertStringToTilesForTest(
       )
     );
 }
+
+export function saveAsReplay(history: GameStoreState['history']) {
+  const replayData = {
+    rows: ROWS,
+    cols: COLS,
+    history,
+  };
+
+  const file: HTMLAnchorElement = document.createElement('a');
+  const fileBlob: Blob = new Blob([JSON.stringify(replayData)], {
+    type: 'json',
+  });
+  file.href = URL.createObjectURL(fileBlob);
+  file.download = 'replay.json';
+
+  file.click();
+}
