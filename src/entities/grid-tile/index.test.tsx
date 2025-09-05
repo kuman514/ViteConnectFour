@@ -7,7 +7,13 @@ import { GridTileStatus } from './types';
 describe('GridTile', () => {
   it('should be red when player 1 touched', () => {
     render(
-      <GridTile row={0} col={0} status={GridTileStatus.P1} isDisabled={false} />
+      <GridTile
+        row={0}
+        col={0}
+        status={GridTileStatus.P1}
+        isDisabled={false}
+        isHighlighted={false}
+      />
     );
     const circleColor =
       screen.getByLabelText('grid-circle-0-0').style.backgroundColor;
@@ -16,7 +22,13 @@ describe('GridTile', () => {
 
   it('should be yellow when player 2 touched', () => {
     render(
-      <GridTile row={0} col={0} status={GridTileStatus.P2} isDisabled={false} />
+      <GridTile
+        row={0}
+        col={0}
+        status={GridTileStatus.P2}
+        isDisabled={false}
+        isHighlighted={false}
+      />
     );
     const circleColor =
       screen.getByLabelText('grid-circle-0-0').style.backgroundColor;
@@ -30,6 +42,7 @@ describe('GridTile', () => {
         col={0}
         status={GridTileStatus.EMPTY}
         isDisabled={false}
+        isHighlighted={false}
       />
     );
     const circleColor =
@@ -46,6 +59,7 @@ describe('GridTile', () => {
         status={GridTileStatus.EMPTY}
         isDisabled={false}
         onClick={mockFn}
+        isHighlighted={false}
       />
     );
     fireEvent.click(screen.getByLabelText('grid-tile-0-0'));
@@ -61,6 +75,7 @@ describe('GridTile', () => {
         status={GridTileStatus.EMPTY}
         isDisabled
         onClick={mockFn}
+        isHighlighted={false}
       />
     );
     fireEvent.click(screen.getByLabelText('grid-tile-0-0'));
@@ -83,12 +98,14 @@ describe('GridTile', () => {
           col={0}
           status={GridTileStatus.EMPTY}
           isDisabled={false}
+          isHighlighted={false}
         />
         <GridTile
           row={0}
           col={1}
           status={GridTileStatus.EMPTY}
           isDisabled={false}
+          isHighlighted={false}
         />
       </div>
     );
