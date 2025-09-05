@@ -20,8 +20,3 @@ export interface GameStoreAction {
 }
 
 export type GameStore = GameStoreState & GameStoreAction;
-
-export interface WinnerInfo {
-  winner: GridTileStatus;
-  range: Coords[];
-}

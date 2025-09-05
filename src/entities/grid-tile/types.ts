@@ -21,3 +21,8 @@ export interface HistoryNode {
   player: GridTileStatus;
   coords: Coords;
 }
+
+export interface WinnerInfo {
+  winner: GridTileStatus;
+  range: Coords[];
+}

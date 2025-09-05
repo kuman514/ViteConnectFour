@@ -10,10 +10,11 @@ import {
   GridTileStatus,
   type ColRange,
   type RowRange,
+  type WinnerInfo,
 } from '^/entities/grid-tile/types';
 
 import { MINIMUM_WINNING_LENGTH } from '../constants';
-import type { GameStoreState, WinnerInfo } from '../types';
+import type { GameStoreState } from '../types';
 
 export function getInitialTiles() {
   return Array.from({ length: ROWS }, () =>
