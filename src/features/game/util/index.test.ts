@@ -179,9 +179,13 @@ describe('Game utils', () => {
     const anchorMock = {
       click: onClickMockFn,
       set href(val: string) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         this._href = val;
       },
       set download(val: string) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
         this._download = val;
       },
     } as unknown as HTMLAnchorElement;
@@ -207,7 +211,11 @@ describe('Game utils', () => {
 
     expect(createElementMock).toHaveBeenCalledWith('a');
     expect(createObjectUrlMockFn).toHaveBeenCalled();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     expect(anchorMock._href).toBe('blob:mock-url');
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
     expect(anchorMock._download).toBe('replay.json');
     expect(onClickMockFn).toHaveBeenCalled();
 
