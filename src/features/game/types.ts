@@ -1,18 +1,9 @@
 import type {
   ColRange,
+  Coords,
   GridTileStatus,
-  RowRange,
+  HistoryNode,
 } from '^/entities/grid-tile/types';
-
-export interface Coords {
-  row: RowRange;
-  col: ColRange;
-}
-
-export interface HistoryNode {
-  player: GridTileStatus;
-  coords: Coords;
-}
 
 export interface GameStoreState {
   tiles: GridTileStatus[][];

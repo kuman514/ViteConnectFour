@@ -1,9 +1,13 @@
 import { create } from 'zustand';
 
 import { MAX_ROW } from '^/entities/grid-tile/constants';
-import { GridTileStatus, type RowRange } from '^/entities/grid-tile/types';
+import {
+  GridTileStatus,
+  type HistoryNode,
+  type RowRange,
+} from '^/entities/grid-tile/types';
 
-import type { GameStore, HistoryNode } from '../types';
+import type { GameStore } from '../types';
 import { deepCopyTiles, getInitialTiles, getWinner } from '../util';
 
 export const useGameStore = create<GameStore>()((set) => ({
