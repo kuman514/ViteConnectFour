@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 
 import {
   MAX_COL,
@@ -13,6 +13,7 @@ import {
   deepCopyTiles,
   getInitialTiles,
   getWinner,
+  saveAsReplay,
 } from '.';
 
 describe('Game utils', () => {
@@ -164,5 +165,60 @@ describe('Game utils', () => {
       winner: GridTileStatus.EMPTY,
       range: [],
     });
+  });
+
+  /**
+   * @todo
+   * Know what mockReturnValue and spyOn are
+   */
+  it('should invoke download when saving history to replay file', () => {
+    const onClickMockFn = vi.fn();
+    const createObjectUrlMockFn = vi.fn().mockReturnValue('blob:mock-url');
+    global.URL.createObjectURL = createObjectUrlMockFn;
+
+    const anchorMock = {
+      click: onClickMockFn,
+      set href(val: string) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        this._href = val;
+      },
+      set download(val: string) {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        this._download = val;
+      },
+    } as unknown as HTMLAnchorElement;
+
+    const createElementMock = vi
+      .spyOn(document, 'createElement')
+      .mockReturnValue(anchorMock);
+
+    saveAsReplay([
+      {
+        player: GridTileStatus.EMPTY,
+        coords: { row: 5, col: 1 },
+      },
+      {
+        player: GridTileStatus.EMPTY,
+        coords: { row: 4, col: 1 },
+      },
+      {
+        player: GridTileStatus.EMPTY,
+        coords: { row: 4, col: 6 },
+      },
+    ]);
+
+    expect(createElementMock).toHaveBeenCalledWith('a');
+    expect(createObjectUrlMockFn).toHaveBeenCalled();
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    expect(anchorMock._href).toBe('blob:mock-url');
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    expect(anchorMock._download).toBe('replay.json');
+    expect(onClickMockFn).toHaveBeenCalled();
+
+    createElementMock.mockRestore();
   });
 });

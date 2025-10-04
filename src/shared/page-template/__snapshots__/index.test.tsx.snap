@@ -13,5 +13,31 @@ exports[`PageTemplate > should match with snapshot 1`] = `
       Aggie Koishi
     </div>
   </section>
+  <section
+    class="fixed left-0 top-0 w-full flex flex-col justify-center items-center py-8"
+  >
+    <nav>
+      <ul
+        class="flex flex-row gap-4"
+      >
+        <li>
+          <a
+            data-discover="true"
+            href="/"
+          >
+            Game
+          </a>
+        </li>
+        <li>
+          <a
+            data-discover="true"
+            href="/replay"
+          >
+            Replay
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </section>
 </main>
 `;
