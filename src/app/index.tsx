@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router';
 
 import GamePage from '^/pages/game';
+import ReplayPage from '^/pages/replay';
 import PageTemplate from '^/shared/page-template';
 
 export default function App() {
@@ -9,7 +10,7 @@ export default function App() {
       <Routes>
         <Route element={<PageTemplate />}>
           <Route index element={<GamePage />} />
-          {/* <Route path="replay" element={<ReplayPage />} /> */}
+          <Route path="replay" element={<ReplayPage />} />
         </Route>
       </Routes>
     </BrowserRouter>

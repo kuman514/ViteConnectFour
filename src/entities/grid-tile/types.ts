@@ -11,3 +11,18 @@ export enum GridTileStatus {
 
 export type RowRange = IntRange<0, Rows>;
 export type ColRange = IntRange<0, Cols>;
+
+export interface Coords {
+  row: RowRange;
+  col: ColRange;
+}
+
+export interface HistoryNode {
+  player: GridTileStatus;
+  coords: Coords;
+}
+
+export interface WinnerInfo {
+  winner: GridTileStatus;
+  range: Coords[];
+}

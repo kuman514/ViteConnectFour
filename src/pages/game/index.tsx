@@ -6,6 +6,7 @@ import {
   type RowRange,
 } from '^/entities/grid-tile/types';
 import { useGameStore } from '^/features/game/store';
+import { saveAsReplay } from '^/features/game/util';
 import ResultScreen from '^/features/result-screen';
 import Title from '^/shared/title';
 import UIButton from '^/shared/ui-button';
@@ -104,6 +105,15 @@ export default function GamePage() {
           }}
         >
           Reset
+        </UIButton>
+        <UIButton
+          ariaLabel="save-replay"
+          isDisabled={!(isDraw || winner !== GridTileStatus.EMPTY)}
+          onClick={() => {
+            saveAsReplay(history);
+          }}
+        >
+          Save replay
         </UIButton>
       </div>
       <ResultScreen winner={winner} />

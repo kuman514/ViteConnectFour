@@ -378,4 +378,53 @@ describe('Game page', () => {
       'Draw!'
     );
   });
+
+  it('should have replay not clickable when there is no winning result', async () => {
+    render(<GamePage />);
+
+    expect(
+      ((await screen.findByLabelText('save-replay')) as HTMLInputElement)
+        .disabled
+    ).toStrictEqual(true);
+  });
+
+  it('should have replay clickable when there is winning result', async () => {
+    render(<GamePage />);
+
+    const sequence: ColRange[] = [
+      5, 1, 5, 5, 3, 4, 5, 4, 0, 4, 6, 2, 5, 3, 2, 3, 6, 6, 2, 6, 5, 6, 3, 0, 6,
+      3, 0, 0, 3, 4, 4,
+    ];
+    for (const col of sequence) {
+      const randomlySelectedRow = Math.floor(Math.random() * ROWS) as RowRange;
+      fireEvent.click(
+        await screen.findByLabelText(`grid-tile-${randomlySelectedRow}-${col}`)
+      );
+    }
+
+    expect(
+      ((await screen.findByLabelText('save-replay')) as HTMLInputElement)
+        .disabled
+    ).toStrictEqual(false);
+  });
+
+  it('should have replay clickable when there is draw result', async () => {
+    render(<GamePage />);
+
+    const sequence: ColRange[] = [
+      0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 4, 3, 3, 3, 3, 3, 3,
+      4, 4, 4, 4, 4, 5, 5, 5, 5, 5, 6, 6, 6, 6, 6, 6, 5,
+    ];
+    for (const col of sequence) {
+      const randomlySelectedRow = Math.floor(Math.random() * ROWS) as RowRange;
+      fireEvent.click(
+        await screen.findByLabelText(`grid-tile-${randomlySelectedRow}-${col}`)
+      );
+    }
+
+    expect(
+      ((await screen.findByLabelText('save-replay')) as HTMLInputElement)
+        .disabled
+    ).toStrictEqual(false);
+  });
 });
