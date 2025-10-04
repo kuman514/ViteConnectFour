@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import GridTile from '^/entities/grid-tile';
 import { COLS, ROWS } from '^/entities/grid-tile/constants';
@@ -18,6 +18,14 @@ export default function ReplayPage() {
 
   const [currentPage, setCurrentPage] = useState<number>(0);
   const [loadedHistory, setLoadedHistory] = useState<HistoryNode[]>([]);
+
+  const fileRef = useRef<HTMLInputElement>(null);
+
+  function loadHistory(newHistory: HistoryNode[]) {
+    reset();
+    setCurrentPage(0);
+    setLoadedHistory(newHistory);
+  }
 
   const renderTiles = (
     <div
@@ -56,8 +64,8 @@ export default function ReplayPage() {
 
   const renderPage =
     loadedHistory.length > 0 ? (
-      <span>
-        {currentPage + 1} / {loadedHistory.length}
+      <span aria-label="pages">
+        {currentPage} / {loadedHistory.length}
       </span>
     ) : (
       <span>Load a replay file.</span>
@@ -70,7 +78,7 @@ export default function ReplayPage() {
       setLoadedHistory([]);
       reset();
     };
-  }, [reset]);
+  }, []);
 
   return (
     <div className="w-full h-full flex flex-col justify-center items-center gap-4">
@@ -100,8 +108,16 @@ export default function ReplayPage() {
         </UIButton>
       </div>
       <div className="flex flex-row">
-        <label htmlFor="replay-file">Load replay</label>
+        <UIButton
+          ariaLabel="load-replay"
+          onClick={() => {
+            fileRef.current?.click();
+          }}
+        >
+          Load replay
+        </UIButton>
         <input
+          ref={fileRef}
           type="file"
           className="hidden"
           id="replay-file"
@@ -124,9 +140,7 @@ export default function ReplayPage() {
                   return;
                 }
 
-                reset();
-                setCurrentPage(0);
-                setLoadedHistory(result.history);
+                loadHistory(result.history);
               });
 
               reader.readAsText(files[0]);
